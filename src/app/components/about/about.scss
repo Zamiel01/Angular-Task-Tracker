@@ -1,0 +1,62 @@
+.about-content {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  border: 1px solid #111;
+  border-radius: 6px;
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #111;
+    margin-bottom: 0.6rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.25rem;
+
+    li {
+      font-size: 0.9rem;
+      color: #333;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid #eee;
+
+      &::before {
+        content: '→';
+        margin-right: 0.6rem;
+        color: #111;
+        font-weight: 700;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .version {
+    font-size: 0.75rem;
+    color: #999;
+    text-align: right;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    letter-spacing: 0.04em;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "tasks": [
+    {
+      "id": "ec86",
+      "text": "Meeting at School",
+      "day": "Feb 23 2025 at 14:30",
+      "reminder": false
+    },
+    {
+      "id": "ec88",
+      "text": "Meeting at Home",
+      "day": "Feb 23 2025 at 18:30",
+      "reminder": false
+    },
+    {
+      "id": "ec90",
+      "text": "Meeting at Park",
+      "day": "Feb 23 2025 at 22:30",
+      "reminder": false
+    },
+    {
+      "id": "0ab8",
+      "text": "Restaurant",
+      "day": "Jan 30 2026 at 20:30",
+      "reminder": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

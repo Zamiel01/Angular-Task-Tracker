@@ -1,0 +1,130 @@
+// ── Variables ────────────────────────────────────────────
+$color-text:        #111;
+$color-muted:       #555;
+$color-border:      #111;
+$color-placeholder: #aaa;
+$radius:            6px;
+$transition:        0.15s ease;
+
+// ── Global box-sizing fix ─────────────────────────────────
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+// ── Page centering ────────────────────────────────────────
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  background: #fff;
+}
+
+// ── Form Container ───────────────────────────────────────
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  background: #fff;
+  max-width: 480px;
+  width: 100%;
+}
+
+// ── Form Control ─────────────────────────────────────────
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    background: #fff;
+    color: $color-text;
+    border: 1px solid $color-border;
+    border-radius: $radius;
+    font-size: 0.95rem;
+    outline: none;
+    transition: box-shadow $transition;
+
+    &::placeholder {
+      color: $color-placeholder;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &.form-control-check {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    label {
+      font-weight: 400;
+      color: $color-muted;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 1.1rem;
+      height: 1.1rem;
+      border: 1px solid $color-border;
+      border-radius: 3px;
+      background: #fff;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background $transition;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath d='M1 5l3.5 3.5L11 1' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 70%;
+        transition: opacity $transition;
+      }
+
+      &:checked {
+        background: $color-text;
+        &::after { opacity: 1; }
+      }
+    }
+  }
+}
+
+// ── Submit Button ─────────────────────────────────────────
+.btn.btn-block {
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: $radius;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition;
+
+  &:hover { background: #333; }
+  &:active { background: #000; }
+  &:focus-visible {
+    outline: 2px solid #111;
+    outline-offset: 3px;
+  }
+}

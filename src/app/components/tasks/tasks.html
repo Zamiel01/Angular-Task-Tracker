@@ -1,0 +1,9 @@
+<div class="tasks-container">
+<app-add-task (onAddTask)="addTask($event)" ></app-add-task>
+@if (tasks$ | async; as tasks) {
+  @for (task of tasks; track task.id) {
+    <app-tasks-item [task]="task" (deleteTask)="deleteTask(task)" (toggleReminder)="onToggleReminder(task)" ></app-tasks-item>
+  }
+}
+<p *ngIf="emptyTasksError()">{{ emptyTasksError() }}</p>
+</div>

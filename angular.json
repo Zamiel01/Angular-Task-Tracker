@@ -20,7 +20,14 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/angular-crash",
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "polyfills": ["zone.js"],
+            "prerender": false,
+            "ssr": {
+              "entry": "server.ts"
+            },
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -31,7 +38,10 @@
             ],
             "styles": [
               "src/styles.scss"
-            ]
+            ],
+            "security": {
+              "allowedHosts": ["localhost", "127.0.0.1"]
+            }
           },
           "configurations": {
             "production": {
@@ -57,8 +67,12 @@
           },
           "defaultConfiguration": "production"
         },
+
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "angular-crash:build:production"
