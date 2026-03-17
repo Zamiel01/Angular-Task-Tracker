@@ -7,7 +7,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "json-server --watch db.json --port 5000",
     "build:ssr": "ng build --configuration production && copy dist\\angular-crash\\browser\\index.csr.html dist\\angular-crash\\browser\\index.html",
     "build:ssr:dev": "ng build --configuration development && copy dist\\angular-crash\\browser\\index.csr.html dist\\angular-crash\\browser\\index.html",
     "serve:ssr": "node dist/angular-crash/server/server.mjs",

@@ -5,10 +5,11 @@ import { CommonEngine } from '@angular/ssr/node';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import http from 'http';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './src/app/app';
 import { config } from './src/app/app.config.server';
+import https from 'https';
+import http from 'http';
 
 const bootstrap = (context?: any) => bootstrapApplication(App, config, context);
 
@@ -25,24 +26,44 @@ export function app(): express.Express {
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
-  server.use('/tasks', (req, res) => {
-    const options = {
-      hostname: 'localhost',
-      port: 5000,
-      path: req.originalUrl,
-      method: req.method,
-      headers: req.headers
-    };
-    const proxyReq = http.request(options, (proxyRes) => {
-      res.writeHead(proxyRes.statusCode || 200, proxyRes.headers);
-      proxyRes.pipe(res, { end: true });
-    });
-    req.pipe(proxyReq, { end: true });
-  });
-
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
   }));
+
+  const apiProxyHandler = (req: express.Request, res: express.Response) => {
+    const targetUrl = `https://69b9226ee69653ffe6a6a4d9.mockapi.io${req.originalUrl}`;
+    
+    const protocol = targetUrl.startsWith('https') ? https : http;
+    
+    const options = {
+      method: req.method,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const proxyReq = protocol.request(targetUrl, options, (proxyRes) => {
+      let data = '';
+      proxyRes.on('data', (chunk) => data += chunk);
+      proxyRes.on('end', () => {
+        res.status(proxyRes.statusCode || 200);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+      });
+    });
+
+    proxyReq.on('error', (err) => {
+      res.status(500).json({ error: err.message });
+    });
+
+    if (req.body) {
+      proxyReq.write(JSON.stringify(req.body));
+    }
+    proxyReq.end();
+  };
+
+  server.all('/tasks', apiProxyHandler);
+  server.all('/tasks/*', apiProxyHandler);
 
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
