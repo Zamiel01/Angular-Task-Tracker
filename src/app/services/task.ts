@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TaskServices {
-  private apiUrl = '/tasks';
+  private apiUrl = 'https://69b9226ee69653ffe6a6a4d9.mockapi.io/tasks';
 
   constructor(private http: HttpClient) {}
 

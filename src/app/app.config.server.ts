@@ -5,7 +5,7 @@ import { appConfig as clientConfig } from './app.config';
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(
-      withRoutes([{ path: '**', renderMode: RenderMode.Server }])
+      withRoutes([{ path: '**', renderMode: RenderMode.Client }])
     ),
   ]
 };

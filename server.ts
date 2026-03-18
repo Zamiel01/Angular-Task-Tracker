@@ -15,6 +15,7 @@ const bootstrap = (context?: any) => bootstrapApplication(App, config, context);
 
 export function app(): express.Express {
   const server = express();
+  server.use(express.json());
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = join(serverDistFolder, '..', 'browser');
   const indexHtml = join(browserDistFolder, 'index.html');
